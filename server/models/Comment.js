@@ -1,17 +1,26 @@
 import mongoose from "mongoose";
-const CommentSchema = new mongoose.Schema({
+
+const CommentSchema = new mongoose.Schema(
+  {
     userId: {
-        type: String,
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     videoId: {
-        type: String,
-        required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Video",
+      required: true,
     },
     desc: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 1,
+      maxlength: 1000, // Optional limit to prevent abuse
     },
+  },
+  { timestamps: true }
+);
 
-}, { timestamps: true });
 export default mongoose.model("Comment", CommentSchema);
